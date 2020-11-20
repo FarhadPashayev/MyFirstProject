@@ -7,7 +7,7 @@ namespace MyFirstProject.Infrastructure.Interface
 {
     public interface IMarketable
     {
-      
+  
 
     }
 }
