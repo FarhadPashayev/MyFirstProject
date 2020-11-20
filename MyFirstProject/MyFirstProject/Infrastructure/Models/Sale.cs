@@ -6,10 +6,10 @@ namespace MyFirstProject.Infrastructure.Models
 {
     public  class Sale
     {
-        public int Number  { get; set; }
-        public double Amount { get; set; }
+        public int SaleNumber  { get; set; }
+        public double SaleAmount { get; set; }
         public List<SaleItem> SaleItems { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime SaleDate { get; set; }
 
     }
 }
