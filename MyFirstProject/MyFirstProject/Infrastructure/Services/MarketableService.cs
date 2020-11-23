@@ -28,7 +28,8 @@ namespace MyFirstProject.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public void GetProductBySale(string Name, int Count)
+
+        public void GetProductBySale(int SaleNumber, string ProductCode, int Count)
         {
             throw new NotImplementedException();
         }
@@ -78,14 +79,6 @@ namespace MyFirstProject.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public void RemoveProduct(string ProductCode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveSale(int SaleNumber)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
