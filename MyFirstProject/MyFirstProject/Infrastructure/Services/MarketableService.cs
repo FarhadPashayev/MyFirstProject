@@ -13,29 +13,24 @@ namespace MyFirstProject.Infrastructure.Services
 
         public List<Product> Products => throw new NotImplementedException();
 
-        public MarketableService()
-        {
-
-        }
         public void AddProduct(Product product)
         {
-            
+            throw new NotImplementedException();
         }
 
         public void AddSale(string ProductCode)
         {
-            
+            throw new NotImplementedException();
         }
 
         public void EditProduct(string ProductCode)
         {
-            
+            throw new NotImplementedException();
         }
 
-
-        public void GetProductBySale(int SaleNumber, string ProductCode, int Count)
+        public int GetProductBySale(int SaleNumber, string ProductCode, int ProductQuantity)
         {
-           
+            throw new NotImplementedException();
         }
 
         public List<Product> GetProducts()
@@ -43,7 +38,7 @@ namespace MyFirstProject.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public List<Product> GetProductsByAmountRange(double startAmount, double endAmount)  
+        public List<Product> GetProductsByAmountRange()
         {
             throw new NotImplementedException();
         }
@@ -63,7 +58,7 @@ namespace MyFirstProject.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public void GetSaleBySaleNumber(double saleNumber)
+        public Sale GetSaleBySaleNumber(double saleNumber)
         {
             throw new NotImplementedException();
         }
@@ -82,7 +77,5 @@ namespace MyFirstProject.Infrastructure.Services
         {
             throw new NotImplementedException();
         }
-
-       
     }
 }
