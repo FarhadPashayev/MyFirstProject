@@ -1,0 +1,15 @@
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\bin\Debug\netcoreapp3.1\MyFirstProject.exe
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\bin\Debug\netcoreapp3.1\MyFirstProject.deps.json
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\bin\Debug\netcoreapp3.1\MyFirstProject.runtimeconfig.json
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\bin\Debug\netcoreapp3.1\MyFirstProject.runtimeconfig.dev.json
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\bin\Debug\netcoreapp3.1\MyFirstProject.dll
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\bin\Debug\netcoreapp3.1\MyFirstProject.pdb
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\obj\Debug\netcoreapp3.1\MyFirstProject.csprojAssemblyReference.cache
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\obj\Debug\netcoreapp3.1\MyFirstProject.AssemblyInfoInputs.cache
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\obj\Debug\netcoreapp3.1\MyFirstProject.AssemblyInfo.cs
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\obj\Debug\netcoreapp3.1\MyFirstProject.dll
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\obj\Debug\netcoreapp3.1\MyFirstProject.pdb
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\obj\Debug\netcoreapp3.1\MyFirstProject.genruntimeconfig.cache
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\bin\Debug\netcoreapp3.1\ConsoleTables.dll
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\obj\Debug\netcoreapp3.1\MyFirstProject.csproj.CoreCompileInputs.cache
+C:\Users\Ferhad\Documents\GitHub\MyFirstProject\MyFirstProject\MyFirstProject\obj\Debug\netcoreapp3.1\MyFirstProject.csproj.CopyComplete

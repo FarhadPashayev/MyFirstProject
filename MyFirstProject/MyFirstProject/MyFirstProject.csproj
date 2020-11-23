@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\Services\" />
+    <PackageReference Include="ConsoleTables" Version="2.4.2" />
   </ItemGroup>
 
 </Project>

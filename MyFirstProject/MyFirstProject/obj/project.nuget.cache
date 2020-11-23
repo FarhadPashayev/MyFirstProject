@@ -1,8 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "qGE4TcZ2sOmSwDj/Soo6ZS0gPJe6pz4egbW2BXNmoStsRLLctL7bire4TCioN3xKECRL84TWF6T54vc94NqcRw==",
+  "dgSpecHash": "T3qb0M8MpAEi+TjTo43aYyH7M+W54tkO69NHnmdCq4e+hNGvpnLqRVmDyTTIJjkeNAIYPNT7pbEI9LrE4FIXfw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ferhad\\Documents\\GitHub\\MyFirstProject\\MyFirstProject\\MyFirstProject\\MyFirstProject.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Ferhad\\.nuget\\packages\\consoletables\\2.4.2\\consoletables.2.4.2.nupkg.sha512",
+    "C:\\Users\\Ferhad\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Ferhad\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\Ferhad\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
+    "C:\\Users\\Ferhad\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
+    "C:\\Users\\Ferhad\\.nuget\\packages\\system.reflection.primitives\\4.3.0\\system.reflection.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\Ferhad\\.nuget\\packages\\system.reflection.typeextensions\\4.3.0\\system.reflection.typeextensions.4.3.0.nupkg.sha512",
+    "C:\\Users\\Ferhad\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
+    "C:\\Users\\Ferhad\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
+    "C:\\Users\\Ferhad\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
+  ],
   "logs": []
 }
