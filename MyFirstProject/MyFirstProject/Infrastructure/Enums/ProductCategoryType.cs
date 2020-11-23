@@ -7,5 +7,6 @@ namespace MyFirstProject.Infrastructure.Enums
     public  enum ProductCategoryType
     {
 
+
     }
 }
