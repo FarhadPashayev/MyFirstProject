@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Text;
 using ConsoleTables;
+using MyFirstProject.Infrastructure.Models;
+using MyFirstProject.Infrastructure.Services;
 
 namespace MyFirstProject
 {
     class Program
     {
+        private static readonly MarketableService _marketableService = new MarketableService();
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -51,10 +54,10 @@ namespace MyFirstProject
                 
 
             } while (selectInt != 0);
-           
+           // product isdediklerini gosdermey ucun 
             static void ShowProductsMenu()
             
-                #region second Menu 
+                     #region second Menu 
             {
                     int SelectInt1;
                     do
@@ -68,6 +71,7 @@ namespace MyFirstProject
                     Console.WriteLine("6. Qiymət aralığına görə məhsulları göstər ");
                     Console.WriteLine("7. Məhsullar arasında ada görə axtarış et ");
                     #endregion
+
                     #region Second Menu Selections
 
                     string Select = Console.ReadLine();
@@ -113,7 +117,7 @@ namespace MyFirstProject
 
             }
              
-           
+           //satis isdeklerni gosdermek ucun 
             static void  ShowSale()
             #region Three  Menu 
             {
@@ -173,7 +177,77 @@ namespace MyFirstProject
                 } while (SelectInt2 != 0);
 
                
+
+               
             }
+            #region Show Methods 
+            static void ShowProductList()
+            {
+                Console.WriteLine("-------------- Mövcud satışlar --------------");
+
+                var table = new ConsoleTable("No", "Kateqoriya", "Məhsul", "Sayı", "Qiyməti", "Toplam");
+                int i = 1;
+                foreach (var item in _marketableService.Products)
+                {
+                    table.AddRow(i, item.ProductCatagory, item.ProductName, item.ProductQuantity, item.ProductPrice, (item.ProductPrice * item.ProductPrice).ToString("#.##"));
+                    i++;
+                }
+
+                table.Write();
+            }
+            #endregion
+            // Add product methodu yaradag 
+            static void ShowAddProduct()
+            {
+                Console.WriteLine("------------------Yeni satış əlavə et-------------------");
+                Product product = new Product();
+
+                #region ProductCategoryType 
+                Console.WriteLine("kateqori daxil edin :");
+                product.ProductCatagory = Console.ReadLine();
+                #endregion
+
+                #region ProductName
+                Console.WriteLine("Məhsulun adını daxil edin :");
+                product.ProductName = Console.ReadLine();
+                #endregion
+
+                #region ProductPrice 
+                Console.WriteLine("Satışın qiymətini daxil edin :");
+                product.ProductPrice = Console.ReadLine();
+                double Price;
+                while (!int.TryParse(ProductPriceInput,out Price))
+                {
+                    Console.WriteLine("Ancaq rəqəm daxil etməlisiniz :");
+                    ProductPriceInput = Console.ReadLine();
+                }
+                product.Price = Price;
+                #endregion
+
+                #region ProductQuantity 
+                Console.WriteLine("Satış sayını daxil edin :");
+                product.ProductQuantity = Console.ReadLine();
+                int ProductQuantity;
+                while (!int.TryParse(quantityInput, out quantity))
+                {
+                    Console.WriteLine("Rəqəm daxil etməlisiniz!");
+                    quantityInput = Console.ReadLine();
+                }
+                product.ProductQuantity;
+                #endregion
+
+                #region ProductCode
+                Console.WriteLine("Produqtun nömrəsini daxil edin :");
+                product.ProductCode = Console.ReadLine();
+
+                #endregion
+                _marketableService.AddProduct(product);
+
+                Console.WriteLine("-------------- Yeni satış əlavə edildi --------------");
+            }
+            
+           
+
         }
     }
 }

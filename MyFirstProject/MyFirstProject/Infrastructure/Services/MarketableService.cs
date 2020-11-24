@@ -9,18 +9,19 @@ namespace MyFirstProject.Infrastructure.Services
 {
     public class MarketableService : IMarketable
     {
-        public List<Sale> Sales => throw new NotImplementedException();
-
-        public List<Product> Products => throw new NotImplementedException();
+        private readonly List<Sale> _sales;
+        public List<Sale> Sales => _sales;
+        private readonly List<Product> _products;
+        public List<Product> Products => _products;
 
         public void AddProduct(Product product)
         {
-            throw new NotImplementedException();
+            _products.Add(product);
         }
 
         public void AddSale(string ProductCode)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void EditProduct(string ProductCode)

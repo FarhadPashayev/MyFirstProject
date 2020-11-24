@@ -19,7 +19,7 @@ namespace MyFirstProject.Infrastructure.Interface
         Sale GetSaleBySaleNumber(double saleNumber);
         //112320
         void AddProduct(Product product);
-        void   EditProduct (string ProductCode );
+        void   EditProduct (string ProductCode  );
         List<Product> GetProducts();
         List<Product> GetProductsByCategoryName (ProductCategoryType productCategory );
         List<Product> GetProductsByAmountRange();
