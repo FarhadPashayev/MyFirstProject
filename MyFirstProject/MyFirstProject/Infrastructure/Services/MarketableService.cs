@@ -59,9 +59,9 @@ namespace MyFirstProject.Infrastructure.Services
             
         }
 
-        public void EditProduct(string ProductCode)
+        public List<Product> EditProduct(string productCode)
         {
-            throw new NotImplementedException();
+            return _products.FindAll(p => p.ProductCode == productCode).ToList();
         }
 
         public int GetProductBySale(int SaleNumber, string ProductCode, int ProductQuantity)
@@ -113,5 +113,6 @@ namespace MyFirstProject.Infrastructure.Services
         {
             throw new NotImplementedException();
         }
+
     }
 }
