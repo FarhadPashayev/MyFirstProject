@@ -96,7 +96,8 @@ namespace MyFirstProject
                             ShowProductEdit();
                             break;
                         case 3:
-                            continue;
+                            ShowRemoveProduct();
+                            break;
                         case 4:
                             ShowProductList();
                             break;
@@ -191,11 +192,11 @@ namespace MyFirstProject
             {
                 Console.WriteLine("-------------- Mövcud satışlar --------------");
 
-                var table = new ConsoleTable("No", "Kateqoriya", "Məhsul", "Sayı", "Qiyməti");
+                var table = new ConsoleTable("No", "Kateqoriya", "Məhsul", "Sayı", "Qiyməti","Kodu");
                 int i = 1;
                 foreach (var item in _marketableService.Products)
                 {
-                    table.AddRow(i, item.ProductCatagory, item.ProductName, item.ProductQuantity, item.ProductPrice);
+                    table.AddRow(i, item.ProductCatagory, item.ProductName, item.ProductQuantity, item.ProductPrice,item.ProductCode);
                     i++;
                 }
 
@@ -306,6 +307,7 @@ namespace MyFirstProject
            // Edit product methodu yaradag 
            static void ShowProductEdit()
             {
+                Product product = new Product();
                 Console.WriteLine("");
                 Console.WriteLine("================Məhsul üzərində düzəliş edin ==================");
                 Console.Write("Məhsulun kodunu daxil edin :");
@@ -321,19 +323,20 @@ namespace MyFirstProject
                 int ProductQuantity = Convert.ToInt32(Console.ReadLine());
 
                 Console.WriteLine("");
-                Console.WriteLine("Məhsulun yeni məbləğini daxil edin:");
+                Console.Write("Məhsulun yeni məbləğini daxil edin:");
                 double ProductPrice = Convert.ToDouble(Console.ReadLine());
 
                 Console.WriteLine("");
                 int selectInt;
                 do
                 {
+                    
                     #region product Category Menu 
                     Console.WriteLine("Kategoriya daxil edin :");
-                    Console.WriteLine("1. SonyHeadphone ");
-                    Console.WriteLine("2. Tv");
-                    Console.WriteLine("3. Computer");
-                    Console.WriteLine("4. Phone");
+                    Console.WriteLine("0. SonyHeadphone ");
+                    Console.WriteLine("1. Tv");
+                    Console.WriteLine("2. Computer");
+                    Console.WriteLine("3. Phone");
                     #endregion
 
                     #region Product Category Seletion
@@ -352,17 +355,17 @@ namespace MyFirstProject
                     #region Product Category switch
                     switch (selectInt)
                     {
+                        case 0:
+                            product.ProductCatagory = ProductCategoryType.Computer;
+                            break;
                         case 1:
-                            Product.ProductCategory = ProductCategoryType.Computer;
+                            product.ProductCatagory = ProductCategoryType.SonyHeadphone;
                             break;
                         case 2:
-                            Product.ProductCategory = ProductCategoryType.SonyHeadphone;
+                            product.ProductCatagory = ProductCategoryType.Tv;
                             break;
                         case 3:
-                            Product.ProductCategory = ProductCategoryType.Tv;
-                            break;
-                        case 4:
-                            Product.ProductCategory = ProductCategoryType.Phone;
+                            product.ProductCatagory = ProductCategoryType.Phone;
                             break;
                         default:
                             Console.WriteLine("---------------------------------------------");
@@ -379,6 +382,18 @@ namespace MyFirstProject
                 
 
  
+            }
+
+            static void ShowRemoveProduct()
+            {
+                Console.WriteLine("");
+                Console.WriteLine("-------------- Məhsulu silmək --------------");
+
+                Console.WriteLine("");
+                Console.Write("Silmək istədiyiniz məhsulun kodunu daxil edin: ");                        
+
+                string code = Console.ReadLine();
+                _marketableService.RemoveProduct(code);
             }
 
         }

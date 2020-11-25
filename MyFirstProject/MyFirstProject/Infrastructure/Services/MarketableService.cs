@@ -64,7 +64,7 @@ namespace MyFirstProject.Infrastructure.Services
             return _products.FindAll(p => p.ProductCode == productCode).ToList();
         }
 
-        public int GetProductBySale(int SaleNumber, string ProductCode, int ProductQuantity)
+        public int RemoveProductBySaleItem(int SaleNumber, string ProductCode, int ProductQuantity)
         {
             throw new NotImplementedException();
         }
@@ -114,5 +114,11 @@ namespace MyFirstProject.Infrastructure.Services
             throw new NotImplementedException();
         }
 
+        public void RemoveProduct(string ProductCode)
+        {
+            //var resultlist = _products.ToList();
+            //var itemToRemove = resultlist.Single(r => r.ProductCode == productCode);
+            //_products.Remove(itemToRemove);
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace MyFirstProject.Infrastructure.Interface
       List<Sale> Sales { get; }
         List<Product> Products { get; }
        void  AddSale(string ProductCode );
-        int GetProductBySale( int SaleNumber , string ProductCode,int ProductQuantity );
+        int RemoveProductBySaleItem( int SaleNumber , string ProductCode,int ProductQuantity );
         List<Sale> GetSales();
         List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate);
         List<Sale> GetSalesByAmountRange(double startAmount, double endAmount);
@@ -24,7 +24,7 @@ namespace MyFirstProject.Infrastructure.Interface
         List<Product> GetProductsByCategoryName (ProductCategoryType productCategory );
         List<Product> GetProductsByAmountRange();
         List<Product> GetProductsByProductsName(string ProductName);
-        void ClearProduct(string ProductCode);
+        void RemoveProduct(string ProductCode);
  
         
 
