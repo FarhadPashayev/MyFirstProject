@@ -378,7 +378,7 @@ namespace MyFirstProject
                     }
                     #endregion
 
-                } while (selectInt == 0);
+                } while (selectInt == -1);
                 
 
  
