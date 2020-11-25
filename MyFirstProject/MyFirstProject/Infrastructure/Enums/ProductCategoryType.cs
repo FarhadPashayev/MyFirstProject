@@ -6,7 +6,10 @@ namespace MyFirstProject.Infrastructure.Enums
 {
     public  enum ProductCategoryType
     {
-
+         SonyHeadphone ,
+         Tv,
+         Computer,
+         Phone
 
     }
 }

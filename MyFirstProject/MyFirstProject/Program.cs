@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using ConsoleTables;
+using MyFirstProject.Infrastructure.Enums;
 using MyFirstProject.Infrastructure.Models;
 using MyFirstProject.Infrastructure.Services;
 
@@ -88,13 +89,15 @@ namespace MyFirstProject
                     switch (SelectInt1)
                     {
                         case 1:
-                            continue;
+                            ShowProductAdd();
+                            break;
                         case 2:
                             continue;
                         case 3:
                             continue;
                         case 4:
-                            continue;
+                            ShowProductList();
+                            break;
                         case 5:
                             continue;
                         case 6:
@@ -119,7 +122,7 @@ namespace MyFirstProject
              
            //satis isdeklerni gosdermek ucun 
             static void  ShowSale()
-            #region Three  Menu 
+                     #region Three  Menu 
             {
                 int SelectInt2;
                 do
@@ -180,6 +183,7 @@ namespace MyFirstProject
 
                
             }
+            // Table methodu  
             #region Show Methods 
             static void ShowProductList()
             {
@@ -197,46 +201,97 @@ namespace MyFirstProject
             }
             #endregion
             // Add product methodu yaradag 
-            static void ShowAddProduct()
+            static void ShowProductAdd()
             {
                 Console.WriteLine("------------------Yeni satış əlavə et-------------------");
                 Product product = new Product();
 
                 #region ProductCategoryType 
-                Console.WriteLine("kateqori daxil edin :");
-                product.ProductCatagory = Console.ReadLine();
+                int selectInt;
+                do
+                {
+                    #region product Category Menu
+                    Console.WriteLine("Kategoriya daxil edin :");
+                    Console.WriteLine("1. SonyHeadphone ");
+                    Console.WriteLine("2. Tv");
+                    Console.WriteLine("3. Computer");
+                    Console.WriteLine("4. Phone");
+                    #endregion
+
+                    #region Product Category Selection
+                    Console.WriteLine("");
+                    Console.WriteLine("Seçiminizi edin:");
+                    string select = Console.ReadLine();
+
+                    while (!int.TryParse(select, out selectInt))
+                    {
+                        Console.WriteLine("");
+                        Console.Write("Rəqəm daxil etməlisiniz!: ");
+                        select = Console.ReadLine();
+                    }
+                    #endregion
+                    #region Product Category switch 
+                    switch (selectInt)
+                    {
+                        case 1:
+                            product.ProductCatagory = ProductCategoryType.SonyHeadphone;
+                            break;
+                        case 2:
+                            product.ProductCatagory = ProductCategoryType.Tv;
+                            break;
+                        case 3:
+                            product.ProductCatagory = ProductCategoryType.Computer;
+                            break;
+                        case 4:
+                            product.ProductCatagory = ProductCategoryType.Phone;
+                            break;
+                        default:
+                            Console.WriteLine("---------------------------------------------");
+                            Console.WriteLine("Siz yalnış seçim etdiniz, 1-4 aralığında seçim etməlisiniz! ");
+                            Console.WriteLine("-----------------------------------------------");
+                            break;
+
+                    }
+                    #endregion
+
+                } while (selectInt == 0);
+
                 #endregion
 
                 #region ProductName
+
                 Console.WriteLine("Məhsulun adını daxil edin :");
                 product.ProductName = Console.ReadLine();
                 #endregion
 
                 #region ProductPrice 
+
                 Console.WriteLine("Satışın qiymətini daxil edin :");
-                product.ProductPrice = Console.ReadLine();
-                double Price;
-                while (!int.TryParse(ProductPriceInput,out Price))
+               string ProductPriceInput = Console.ReadLine();
+                double ProductPrice;
+                while (!double.TryParse(ProductPriceInput,out ProductPrice))
                 {
                     Console.WriteLine("Ancaq rəqəm daxil etməlisiniz :");
                     ProductPriceInput = Console.ReadLine();
                 }
-                product.Price = Price;
+                 product.ProductPrice = ProductPrice;
                 #endregion
 
                 #region ProductQuantity 
+
                 Console.WriteLine("Satış sayını daxil edin :");
-                product.ProductQuantity = Console.ReadLine();
+                string ProductQuantityInput = Console.ReadLine();
                 int ProductQuantity;
-                while (!int.TryParse(quantityInput, out quantity))
+                while (!int.TryParse(ProductQuantityInput, out ProductQuantity))
                 {
                     Console.WriteLine("Rəqəm daxil etməlisiniz!");
-                    quantityInput = Console.ReadLine();
+                    ProductQuantityInput = Console.ReadLine();
                 }
-                product.ProductQuantity;
+                product.ProductQuantity=ProductQuantity;
                 #endregion
 
                 #region ProductCode
+
                 Console.WriteLine("Produqtun nömrəsini daxil edin :");
                 product.ProductCode = Console.ReadLine();
 
@@ -246,7 +301,8 @@ namespace MyFirstProject
                 Console.WriteLine("-------------- Yeni satış əlavə edildi --------------");
             }
             
-           
+           // Edit product methodu yaradag 
+
 
         }
     }
