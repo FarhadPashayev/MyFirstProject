@@ -105,15 +105,15 @@ namespace MyFirstProject.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public List<Sale> GetSalesByAmountRange(double startAmount, double endAmount)
+        public List<Sale> GetSalesByAmountRange(double startAmount, double endAmount) 
         {
-            return _sales.Where(p => p.SaleAmount <= startAmount && p.SaleAmount >= endAmount).ToList();
-        }
+            return _sales.Where(s => s.SaleAmount >= startAmount && s.SaleAmount <= endAmount).ToList();
+        } //+
 
         public List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
-        }
+            return _sales.Where(s => s.SaleDate >= startDate && s.SaleDate <= endDate).ToList();
+        } //+
 
         public void RemoveProduct(string ProductCode)
         {
@@ -121,5 +121,11 @@ namespace MyFirstProject.Infrastructure.Services
             var itemToRemove = resultlist.Single(r => r.ProductCode == ProductCode);
             _products.Remove(itemToRemove);
         }          //+
+
+        public void RemoveSale(int saleNumber)
+        {
+            Sale sale = _sales.Find(s => s.SaleNumber == saleNumber);
+            _sales.Remove(sale);
+        }
     }
 }

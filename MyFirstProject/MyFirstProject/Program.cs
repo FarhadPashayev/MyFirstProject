@@ -161,11 +161,13 @@ namespace MyFirstProject
                         case 2:
                             continue;
                         case 3:
-                            continue;
+                            ShowRemoveSale();
+                            break;
                         case 4:
                             continue;
                         case 5:
-                            continue;
+                            ShowGetSalesByDateRange();
+                            break;
                         case 6:
                             ShowGetSalesByAmountRange();
                             break;
@@ -560,6 +562,68 @@ namespace MyFirstProject
                         Console.WriteLine("Satışın  Əşyaları:" + item.SaleItems);
                     }
                 }
+            }
+
+            static void ShowGetSalesByDateRange()
+            {
+                Console.WriteLine("=============Tarix aralığında satışların göstərilməsi================= ");
+                #region Start Date 
+                Console.WriteLine("Başlanğıc tarixi daxil edin");
+                string startDateInput = Console.ReadLine();
+                DateTime startDate;
+                while (!DateTime.TryParse(startDateInput, out startDate))
+                {
+                    Console.WriteLine("Tarix daxil etməlisiniz !");
+                    startDateInput = Console.ReadLine();
+                }
+
+                #endregion
+                #region End Date
+                Console.WriteLine("Bitiş tarixi daxil edin ");
+                string endDateInput = Console.ReadLine();
+                DateTime endDate;
+                while (!DateTime.TryParse(endDateInput, out endDate))
+                {
+                    Console.WriteLine("Tarix daxil etməlisiniz !");
+                    endDateInput = Console.ReadLine();
+                }
+                #endregion
+                List<Sale> result = _marketableService.GetSalesByDateRange(startDate, endDate);
+                foreach (var item in result)
+                {
+                    if (result.Count != 0)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Satışın  Məbləği:" + item.SaleAmount);
+                        Console.WriteLine("Satışın  Vaxtı:" + item.SaleDate);
+                        Console.WriteLine("Satışın  Nömrəsi:" + item.SaleNumber);
+                        Console.WriteLine("Satışın  Əşyaları:" + item.SaleItems);
+                    }
+                }
+            }
+            static void ShowRemoveSale()
+            {
+                Sale sale = new Sale();
+
+                Console.WriteLine("");
+                Console.WriteLine("===================== Satışı silmək ====================");
+
+                Console.WriteLine("");
+                Console.Write("Silmək istədiyiniz satışın nömrəsini daxil edin: ");                        
+
+                string codeInput = Console.ReadLine();
+                int code;
+
+                while (!int.TryParse(codeInput, out code))
+                {
+                    Console.WriteLine("Rəqəm daxil etməlisiniz!");
+                    codeInput = Console.ReadLine();
+                }
+
+
+                Console.WriteLine("");
+
+                _marketableService.RemoveSale(code);
             }
         }
     }
