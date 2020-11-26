@@ -102,11 +102,14 @@ namespace MyFirstProject
                             ShowProductList();
                             break;
                         case 5:
-                            continue;
+                            ShowGetProductsByCategoryName();
+                            break;
                         case 6:
-                            continue;
+                            ShowGetProductByAmountRange();
+                            break;
                         case 7:
-                            continue;                         
+                            ShowGetProductsByProductsName();
+                            break;
                         default:
                             Console.WriteLine("------------------------------------------");
                             Console.WriteLine("siz yalnış seçim etdiniz,1-7 arasında seçim edin ");
@@ -196,7 +199,7 @@ namespace MyFirstProject
                 int i = 1;
                 foreach (var item in _marketableService.Products)
                 {
-                    table.AddRow(i, item.ProductCatagory, item.ProductName, item.ProductQuantity, item.ProductPrice,item.ProductCode);
+                    table.AddRow(i, item.ProductCategory, item.ProductName, item.ProductQuantity, item.ProductPrice,item.ProductCode);
                     i++;
                 }
 
@@ -237,16 +240,16 @@ namespace MyFirstProject
                     switch (selectInt)
                     {
                         case 1:
-                            product.ProductCatagory = ProductCategoryType.SonyHeadphone;
+                            product.ProductCategory = ProductCategoryType.SonyHeadphone;
                             break;
                         case 2:
-                            product.ProductCatagory = ProductCategoryType.Tv;
+                            product.ProductCategory = ProductCategoryType.Tv;
                             break;
                         case 3:
-                            product.ProductCatagory = ProductCategoryType.Computer;
+                            product.ProductCategory = ProductCategoryType.Computer;
                             break;
                         case 4:
-                            product.ProductCatagory = ProductCategoryType.Phone;
+                            product.ProductCategory = ProductCategoryType.Phone;
                             break;
                         default:
                             Console.WriteLine("---------------------------------------------");
@@ -303,7 +306,7 @@ namespace MyFirstProject
 
                 Console.WriteLine("-------------- Yeni satış əlavə edildi --------------");
             }
-            
+           
            // Edit product methodu yaradag 
            static void ShowProductEdit()
             {
@@ -356,16 +359,16 @@ namespace MyFirstProject
                     switch (selectInt)
                     {
                         case 0:
-                            product.ProductCatagory = ProductCategoryType.Computer;
+                            product.ProductCategory = ProductCategoryType.Computer;
                             break;
                         case 1:
-                            product.ProductCatagory = ProductCategoryType.SonyHeadphone;
+                            product.ProductCategory = ProductCategoryType.SonyHeadphone;
                             break;
                         case 2:
-                            product.ProductCatagory = ProductCategoryType.Tv;
+                            product.ProductCategory = ProductCategoryType.Tv;
                             break;
                         case 3:
-                            product.ProductCatagory = ProductCategoryType.Phone;
+                            product.ProductCategory = ProductCategoryType.Phone;
                             break;
                         default:
                             Console.WriteLine("---------------------------------------------");
@@ -383,7 +386,6 @@ namespace MyFirstProject
 
  
             }
-
             static void ShowRemoveProduct()
             {
                 Console.WriteLine("");
@@ -394,6 +396,128 @@ namespace MyFirstProject
 
                 string code = Console.ReadLine();
                 _marketableService.RemoveProduct(code);
+            }
+            static void ShowGetProductByAmountRange()
+            {
+                Console.WriteLine("===============Qiymət aralığında məhsulların göstərilməsi=================");
+
+                #region Start Amount
+                Console.Write("Başlanğıc qiyməti daxil edin:");
+                string startAmountInput = Console.ReadLine();
+                double startAmount;
+                while (!double.TryParse(startAmountInput, out startAmount))
+                {
+                    Console.WriteLine("Rəqəm daxil etməlisiniz!");
+                    startAmountInput = Console.ReadLine();
+                }
+
+                #endregion
+
+                #region End Amount  
+                Console.Write("Son qiyməti daxil edin:");
+                string endAmountInput = Console.ReadLine();
+                double endAmount;
+                while (!double.TryParse(endAmountInput,out endAmount))
+                {
+                    Console.WriteLine("Rəqəm daxil etməlisiniz !");
+                    endAmountInput = Console.ReadLine();
+                }
+                #endregion
+
+                List<Product> result = _marketableService.GetProductsByAmountRange(startAmount, endAmount);
+
+                foreach (var item in result)
+                {
+                    if (result != null)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Məhsulun Adı:" + item.ProductName);
+                        Console.WriteLine("Məhsulun Qiyməti:" + item.ProductPrice);
+                        Console.WriteLine("Məhsulun Kategoruyası:" + item.ProductCategory);
+                        Console.WriteLine("Məhsulun Sayı:" + item.ProductQuantity);
+                        Console.WriteLine("Məhsulun Kodu:" + item.ProductCode);
+                    }
+                }
+            }
+            static void ShowGetProductsByCategoryName()
+            {
+                Console.WriteLine("");
+                Console.WriteLine("====================kategoriyasına görə məhsulu gösdərmək===================");
+
+                Product product = new Product();
+                int selectInt;
+                do
+                {
+                    #region Product Category Name
+                    Console.WriteLine("Məhsulun kategoriyasını daxil edin:");
+                    Console.WriteLine("0. SonyHeadphone ");
+                    Console.WriteLine("1. Tv");
+                    Console.WriteLine("2. Computer");
+                    Console.WriteLine("3. Phone");
+                    #endregion
+
+                    #region Product Category Selection
+                    Console.WriteLine("");
+                    Console.WriteLine("Seçiminizi edin:");
+                    string select = Console.ReadLine();
+
+                    while (!int.TryParse(select, out selectInt))
+                    {
+                        Console.WriteLine("");
+                        Console.Write("Rəqəm daxil etməlisiniz!: ");
+                        select = Console.ReadLine();
+                    }
+
+                    #endregion
+                    #region Product Category Switch 
+                    switch (selectInt)
+                    {
+                        case 0:
+                            product.ProductCategory = ProductCategoryType.Tv;
+                            break;
+                        case 1:
+                            product.ProductCategory = ProductCategoryType.Phone;
+                            break;
+                        case 2:
+                            product.ProductCategory = ProductCategoryType.SonyHeadphone;
+                            break;
+                        case 3:
+                            product.ProductCategory = ProductCategoryType.Computer;
+                            break;
+                        default:
+                            Console.WriteLine("--------------------------------");
+                            Console.WriteLine("Siz yalnış seçim etdiniz,0-3 aralığında seçim etməlisiniz");
+                            Console.WriteLine("--------------------------------");
+                            break;
+                       
+                            break;
+                    }
+                    #endregion
+
+
+                } while (selectInt == -1);
+
+                _marketableService.GetProductsByCategoryName((ProductCategoryType)selectInt);
+            }
+            static void ShowGetProductsByProductsName()
+            {
+                Console.WriteLine("===============Adına görə məhsulun seçilməsi==============");
+                Console.WriteLine("");
+                Console.Write("Məhsulun adın daxil edin:");
+                string productName = Console.ReadLine();
+                List<Product> products = _marketableService.GetProductsByProductsName(productName);
+                foreach (var item in products)
+                {
+                    if (products != null)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Məhsulun Adı: " +item.ProductName);
+                        Console.WriteLine("Məhsulun Kodu: " + item.ProductCode);
+                        Console.WriteLine("Məhsulun Qiyməti: " + item.ProductPrice);
+                        Console.WriteLine("Məhsulun Sayı: " + item.ProductQuantity);
+                        Console.WriteLine("Məhsulun Kategoriyası: " + item.ProductCategory);
+                    }
+                }
             }
 
         }

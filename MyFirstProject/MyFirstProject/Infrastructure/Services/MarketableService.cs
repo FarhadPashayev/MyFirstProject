@@ -19,7 +19,7 @@ namespace MyFirstProject.Infrastructure.Services
             _products.Add(new Product
             {
                 ProductName = "Lenova B50-50  ",
-               ProductCatagory= ProductCategoryType.Computer,
+               ProductCategory= ProductCategoryType.Computer,
                 ProductPrice = 1500,
                 ProductQuantity = 3,
                 ProductCode = "hbxsbxsx5sx"
@@ -31,7 +31,7 @@ namespace MyFirstProject.Infrastructure.Services
             {
 
                 ProductName = "Samsung Note20 Ultra  ",
-                ProductCatagory = ProductCategoryType.Phone,
+                ProductCategory = ProductCategoryType.Phone,
                 ProductPrice = 2500,
                 ProductQuantity = 2,
                 ProductCode = "hbckdjnckjdn4dc"
@@ -41,7 +41,7 @@ namespace MyFirstProject.Infrastructure.Services
             {
 
                 ProductName = "LG  ",
-                ProductCatagory = ProductCategoryType.Tv,
+                ProductCategory = ProductCategoryType.Tv,
                 ProductPrice = 2000,
                 ProductQuantity = 1,
                 ProductCode = "bchdbbc51cddc"
@@ -74,19 +74,25 @@ namespace MyFirstProject.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public List<Product> GetProductsByAmountRange()
+        public List<Product> GetProductsByAmountRange(double startAmount ,double endAmount )
         {
-            throw new NotImplementedException();
+            return _products.Where(p => p.ProductPrice >= startAmount && p.ProductPrice <= endAmount).ToList();
         }
 
-        public List<Product> GetProductsByCategoryName(ProductCategoryType productCategory)
+        public void GetProductsByCategoryName(ProductCategoryType productCategory)
         {
-            throw new NotImplementedException();
+            List<Product> list = _products.FindAll(p => p.ProductCategory == productCategory).ToList();
+
+            foreach (var item in list )
+            {
+                Console.WriteLine("{0},{1},{2}",item.ProductCode,item.ProductName,item.ProductPrice);
+            }
+          
         }
 
         public List<Product> GetProductsByProductsName(string ProductName)
         {
-            throw new NotImplementedException();
+            return _products.FindAll(p => p.ProductName.Contains (ProductName)).ToList();
         }
 
         public void GetSaleByDate(DateTime Date)
@@ -116,9 +122,9 @@ namespace MyFirstProject.Infrastructure.Services
 
         public void RemoveProduct(string ProductCode)
         {
-            //var resultlist = _products.ToList();
-            //var itemToRemove = resultlist.Single(r => r.ProductCode == productCode);
-            //_products.Remove(itemToRemove);
+            var resultlist = _products.ToList();
+            var itemToRemove = resultlist.Single(r => r.ProductCode == ProductCode);
+            _products.Remove(itemToRemove);
         }
     }
 }

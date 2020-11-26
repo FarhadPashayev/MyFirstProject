@@ -21,8 +21,8 @@ namespace MyFirstProject.Infrastructure.Interface
         void AddProduct(Product product);
         List<Product>  EditProduct (string ProductCode  );
         List<Product> GetProducts();
-        List<Product> GetProductsByCategoryName (ProductCategoryType productCategory );
-        List<Product> GetProductsByAmountRange();
+        void GetProductsByCategoryName (ProductCategoryType productCategory );
+        List<Product> GetProductsByAmountRange(double startAmount , double endAmount );
         List<Product> GetProductsByProductsName(string ProductName);
         void RemoveProduct(string ProductCode);
  
