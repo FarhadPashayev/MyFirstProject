@@ -52,7 +52,7 @@ namespace MyFirstProject.Infrastructure.Services
         public void AddProduct(Product product)
         {
             _products.Add(product);
-        }
+        } //+
 
         public void AddSale(string ProductCode)
         {
@@ -62,24 +62,19 @@ namespace MyFirstProject.Infrastructure.Services
         public List<Product> EditProduct(string productCode)
         {
             return _products.FindAll(p => p.ProductCode == productCode).ToList();
-        }
+        }  //+
 
         public int RemoveProductBySaleItem(int SaleNumber, string ProductCode, int ProductQuantity)
         {
             throw new NotImplementedException();
-        }
-
-        public List<Product> GetProducts()
-        {
-            throw new NotImplementedException();
-        }
+        }  //+
 
         public List<Product> GetProductsByAmountRange(double startAmount ,double endAmount )
         {
             return _products.Where(p => p.ProductPrice >= startAmount && p.ProductPrice <= endAmount).ToList();
-        }
+        }    //+
 
-        public void GetProductsByCategoryName(ProductCategoryType productCategory)
+        public void GetProductsByCategoryName(ProductCategoryType productCategory) 
         {
             List<Product> list = _products.FindAll(p => p.ProductCategory == productCategory).ToList();
 
@@ -88,12 +83,12 @@ namespace MyFirstProject.Infrastructure.Services
                 Console.WriteLine("{0},{1},{2}",item.ProductCode,item.ProductName,item.ProductPrice);
             }
           
-        }
-
+        }   // +
+        
         public List<Product> GetProductsByProductsName(string ProductName)
         {
             return _products.FindAll(p => p.ProductName.Contains (ProductName)).ToList();
-        }
+        }          //+
 
         public void GetSaleByDate(DateTime Date)
         {
@@ -112,7 +107,7 @@ namespace MyFirstProject.Infrastructure.Services
 
         public List<Sale> GetSalesByAmountRange(double startAmount, double endAmount)
         {
-            throw new NotImplementedException();
+            return _sales.Where(p => p.SaleAmount <= startAmount && p.SaleAmount >= endAmount).ToList();
         }
 
         public List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate)
@@ -125,6 +120,6 @@ namespace MyFirstProject.Infrastructure.Services
             var resultlist = _products.ToList();
             var itemToRemove = resultlist.Single(r => r.ProductCode == ProductCode);
             _products.Remove(itemToRemove);
-        }
+        }          //+
     }
 }

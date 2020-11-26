@@ -167,7 +167,8 @@ namespace MyFirstProject
                         case 5:
                             continue;
                         case 6:
-                            continue;
+                            ShowGetSalesByAmountRange();
+                            break;
                         case 7:
                             continue;
                         case 8:
@@ -307,7 +308,7 @@ namespace MyFirstProject
                 Console.WriteLine("-------------- Yeni satış əlavə edildi --------------");
             }
            
-           // Edit product methodu yaradag 
+           //  product methodlari yaradag 
            static void ShowProductEdit()
             {
                 Product product = new Product();
@@ -520,6 +521,46 @@ namespace MyFirstProject
                 }
             }
 
+
+
+            // Sale methodlari yaradag
+            static void ShowGetSalesByAmountRange()
+            {
+                Console.WriteLine("===============Qiymət aralığında satışların göstərilmasi==============");
+
+                #region Start Amount
+                Console.WriteLine("Başlanğıc qiyməti daxil edin ");
+                string startAmountInput = Console.ReadLine();
+                double startAmount;
+                while (!double.TryParse(startAmountInput,out startAmount))
+                {
+                    Console.WriteLine("Rəqəm daxil etməlisiniz!");
+                    startAmountInput = Console.ReadLine();
+                }
+                #endregion
+                #region End Amount
+                Console.WriteLine("Son qiyməti daxil edin ");
+                string endAmountInput = Console.ReadLine();
+                double endAmount;
+                while (!double.TryParse(endAmountInput,out endAmount))
+                {
+                    Console.WriteLine("Rəqəm daxil etməlisiniz ");
+                    endAmountInput = Console.ReadLine();
+                }
+                #endregion
+                List<Sale> result = _marketableService.GetSalesByAmountRange(startAmount, endAmount);
+                foreach (var item in result)
+                {
+                    if (result != null)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Satışın  Məbləği:" + item.SaleAmount);
+                        Console.WriteLine("Satışın  Vaxtı:" + item.SaleDate);
+                        Console.WriteLine("Satışın  Nömrəsi:" + item.SaleNumber);
+                        Console.WriteLine("Satışın  Əşyaları:" + item.SaleItems);
+                    }
+                }
+            }
         }
     }
 }
