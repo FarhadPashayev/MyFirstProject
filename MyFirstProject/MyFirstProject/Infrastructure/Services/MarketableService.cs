@@ -11,42 +11,95 @@ namespace MyFirstProject.Infrastructure.Services
     {
         private readonly List<Sale> _sales;
         public List<Sale> Sales => _sales;
+       
         private readonly List<Product> _products;
         public List<Product> Products => _products;
+        private readonly List<SaleItem> _saleItems;
+        public List<SaleItem> SaleItems =>_saleItems;
+
         public MarketableService()
         {
-            _products = new List<Product>();
-            _products.Add(new Product
+            _products = new List<Product>
             {
-                ProductName = "Lenova B50-50  ",
-               ProductCategory= ProductCategoryType.Computer,
-                ProductPrice = 1500,
-                ProductQuantity = 3,
-                ProductCode = "hbxsbxsx5sx"
+                new Product
+                {
+                    ProductName = "Lenova B50-50  ",
+                    ProductCategory = ProductCategoryType.Computer,
+                    ProductPrice = 1500,
+                    ProductQuantity = 3,
+                    ProductCode = "hbxsbxsx5sx"
 
 
 
-            });
-            _products.Add(new Product
+                },
+                new Product
+                {
+
+                    ProductName = "Samsung Note20 Ultra  ",
+                    ProductCategory = ProductCategoryType.Phone,
+                    ProductPrice = 2500,
+                    ProductQuantity = 2,
+                    ProductCode = "hbckdjnckjdn4dc"
+
+                },
+                new Product
+                {
+
+                    ProductName = "LG  ",
+                    ProductCategory = ProductCategoryType.Tv,
+                    ProductPrice = 2000,
+                    ProductQuantity = 1,
+                    ProductCode = "bchdbbc51cddc"
+
+                }
+            };
+            _saleItems = new List<SaleItem>
             {
-
-                ProductName = "Samsung Note20 Ultra  ",
-                ProductCategory = ProductCategoryType.Phone,
-                ProductPrice = 2500,
-                ProductQuantity = 2,
-                ProductCode = "hbckdjnckjdn4dc"
-
-            });
-            _products.Add(new Product
+                new SaleItem
+                {
+                    SaleCount = 3,
+                    SaleItemNumber = 1,
+                    SaleProduct = _products.Find(p => p.ProductCode == "hbxsbxsx5sx")
+                },
+                new SaleItem
+                {
+                    SaleCount = 2,
+                    SaleItemNumber = 2,
+                    SaleProduct = _products.Find(p => p.ProductCode == "hbckdjnckjdn4dc")
+                },
+                new SaleItem
+                {
+                    SaleCount = 5,
+                    SaleItemNumber = 3,
+                    SaleProduct = _products.Find(p => p.ProductCode == "bchdbbc51cddc")
+                }
+            };
+            _sales = new List<Sale>
             {
+                new Sale
+                {
+                    SaleAmount = 500,
+                    SaleNumber = 1,
+                    SaleDate = new DateTime(2020, 07, 25),
+                    SaleItems = _saleItems.FindAll(si => si.SaleCount == 1)
 
-                ProductName = "LG  ",
-                ProductCategory = ProductCategoryType.Tv,
-                ProductPrice = 2000,
-                ProductQuantity = 1,
-                ProductCode = "bchdbbc51cddc"
 
-            });
+                },
+                new Sale
+                {
+                    SaleAmount = 200,
+                    SaleNumber = 2,
+                    SaleDate = new DateTime(2020, 08, 12),
+                    SaleItems = _saleItems.FindAll(si => si.SaleCount == 2)
+                },
+                new Sale
+                {
+                    SaleAmount = 350,
+                    SaleNumber = 3,
+                    SaleDate = new DateTime(2020, 08, 18),
+                    SaleItems = _saleItems.FindAll(si => si.SaleCount == 3)
+                }
+            };
 
         }
         public void AddProduct(Product product)
@@ -54,10 +107,28 @@ namespace MyFirstProject.Infrastructure.Services
             _products.Add(product);
         } //+
 
-        public void AddSale(string ProductCode)
+        public void AddSale(int code, int count)
         {
-            
-        }
+            List<SaleItem> saleItems = new List<SaleItem>();
+            double price = 0;
+
+            var product = _products.FindAll(p => p.ProductCode.Equals(code)).FirstOrDefault();
+            var saleItem = new SaleItem();
+            var Code = code;
+            saleItem.SaleCount = count;
+            saleItem.SaleProduct = product;
+            saleItem.SaleItemNumber = saleItems.Count + 1;
+            saleItems.Add(saleItem);
+            price += count * saleItem.SaleProduct.ProductPrice;
+            var saleNo = _sales.Count + 1;
+            var saleDate = DateTime.Now;
+            var sale = new Sale();
+            sale.SaleNumber = saleNo;
+            sale.SaleAmount = price;
+            sale.SaleItems = saleItems;
+            sale.SaleDate = saleDate;
+            _sales.Add(sale);
+        } 
 
         public List<Product> EditProduct(string productCode)
         {
@@ -90,20 +161,16 @@ namespace MyFirstProject.Infrastructure.Services
             return _products.FindAll(p => p.ProductName.Contains (ProductName)).ToList();
         }          //+
 
-        public void GetSaleByDate(DateTime Date)
+        public List<Sale> GetSaleByDate(DateTime Date)
         {
-            throw new NotImplementedException();
-        }
+           return _sales.Where(s => s.SaleDate == Date).ToList();
+        } //+
 
-        public Sale GetSaleBySaleNumber(double saleNumber)
+        public List<Sale> GetSaleBySaleNumber(double saleNumber)
         {
-            throw new NotImplementedException();
-        }
+            return _sales.Where(s => s.SaleNumber == saleNumber).ToList();
+        } //+
 
-        public List<Sale> GetSales()
-        {
-            throw new NotImplementedException();
-        }
 
         public List<Sale> GetSalesByAmountRange(double startAmount, double endAmount) 
         {
@@ -126,6 +193,11 @@ namespace MyFirstProject.Infrastructure.Services
         {
             Sale sale = _sales.Find(s => s.SaleNumber == saleNumber);
             _sales.Remove(sale);
-        }
+        } //+
+
+        public List<SaleItem> ShowSaleItem(int saleNumber)
+        {
+            return _sales.Find(s => s.SaleNumber == saleNumber).SaleItems.ToList();
+        } //+
     }
 }
