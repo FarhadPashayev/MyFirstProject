@@ -187,7 +187,7 @@ namespace MyFirstProject.Infrastructure.Services
             var resultlist = _products.ToList();
             var itemToRemove = resultlist.Single(r => r.ProductCode == ProductCode);
             _products.Remove(itemToRemove);
-        }          //+
+        }    //+
 
         public void RemoveSale(int saleNumber)
         {

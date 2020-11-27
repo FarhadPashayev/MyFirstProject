@@ -59,12 +59,12 @@ namespace MyFirstProject
            // Mehsul isdediklerini gosdermey ucun 
             static void ShowProductsMenu()
             
-                     #region second Menu 
+                       #region second Menu 
             {
                     int SelectInt1;
                     do
                     {
-                    Console.WriteLine("---------------Məhsullar üzərində əməliyyat aparmaq--------------");
+                    Console.WriteLine("===================Məhsullar üzərində əməliyyat aparmaq===================");
                     Console.WriteLine("1. Yeni məhsul əlavə et ");
                     Console.WriteLine("2. Məhsul üzərində düzəliş et ");
                     Console.WriteLine("3. Məhsulu sil");
@@ -272,18 +272,18 @@ namespace MyFirstProject
 
                 #region ProductName
 
-                Console.WriteLine("Məhsulun adını daxil edin :");
+                Console.Write("Məhsulun adını daxil edin :");
                 product.ProductName = Console.ReadLine();
                 #endregion
 
                 #region ProductPrice 
 
-                Console.WriteLine("Satışın qiymətini daxil edin :");
+                Console.Write("Satışın qiymətini daxil edin :");
                string ProductPriceInput = Console.ReadLine();
                 double ProductPrice;
                 while (!double.TryParse(ProductPriceInput,out ProductPrice))
                 {
-                    Console.WriteLine("Ancaq rəqəm daxil etməlisiniz :");
+                    Console.Write("Ancaq rəqəm daxil etməlisiniz :");
                     ProductPriceInput = Console.ReadLine();
                 }
                  product.ProductPrice = ProductPrice;
@@ -551,8 +551,44 @@ namespace MyFirstProject
             static void ShowAddSale()
             {
                 Console.WriteLine("");
+                Console.WriteLine("===============Yeni satış elavə edin ===============");
+                Sale sale = new Sale();
 
-            } 
+                #region Sale Number
+                Console.WriteLine("Satışın nömrəsini daxil edin:");
+                string SaleNumberInput = Console.ReadLine();
+                int SaleNumber;
+                while (!int.TryParse(SaleNumberInput, out SaleNumber))
+                {
+                    Console.Write("Ancaq rəqəm daxil etmələsiniz :");
+                    SaleNumberInput = Console.ReadLine();
+                }
+                sale.SaleNumber = SaleNumber;
+                #endregion
+                #region Sale Amount 
+                Console.Write("Satışın məbləğini daxil edin :");
+                string SaleAmountInput = Console.ReadLine();
+                double SaleAmount;
+                while (!double.TryParse(SaleAmountInput, out SaleAmount))
+                {
+                    Console.Write("Ancaq rəqəm daxil etməlisiniz :");
+                    SaleAmountInput = Console.ReadLine();
+                }
+                sale.SaleAmount = SaleAmount;
+                #endregion
+                #region Sale Date 
+                Console.Write("Satışın tarixini daxil edin :");
+                string SaleDateInput = Console.ReadLine();
+                DateTime SaleDate;
+                while(!DateTime.TryParse(SaleDateInput, out SaleDate))
+                {
+                    Console.Write("satışın tarixini daxil edin :");
+                    SaleDateInput = Console.ReadLine();
+                }
+                #endregion
+
+
+            }
             static void ShowGetSalesByAmountRange()
             {
                 Console.WriteLine("===============Qiymət aralığında satışların göstərilmasi==============");
@@ -675,6 +711,7 @@ namespace MyFirstProject
                     Console.WriteLine("Satışın  Vaxtı:" + item.SaleDate.ToString("dd.MM.yyyy"));
                     Console.WriteLine("Satışın  Nömrəsi:" + item.SaleNumber);
                     Console.WriteLine("Satışın  Əşyaları:" + item.SaleItems.Count);
+                    
 
                 }
             } 
