@@ -21,6 +21,7 @@ namespace MyFirstProject.Infrastructure.Services
         {
             _products = new List<Product>
             {
+              #region Default Product 
                 new Product
                 {
                     ProductName = "Lenova B50-50  ",
@@ -53,6 +54,8 @@ namespace MyFirstProject.Infrastructure.Services
 
                 }
             };
+            #endregion
+              #region Default SaleItem
             _saleItems = new List<SaleItem>
             {
                 new SaleItem
@@ -74,6 +77,8 @@ namespace MyFirstProject.Infrastructure.Services
                     SaleProduct = _products.Find(p => p.ProductCode == "bchdbbc51cddc")
                 }
             };
+            #endregion
+              #region Default Sale
             _sales = new List<Sale>
             {
                 new Sale
@@ -100,14 +105,14 @@ namespace MyFirstProject.Infrastructure.Services
                     SaleItems = _saleItems.FindAll(si => si.SaleCount == 3)
                 }
             };
-
+            #endregion
         }
         public void AddProduct(Product product)
         {
             _products.Add(product);
         } //+
 
-        public void AddSale(int code, int count)
+        public void AddSale(int code, int saleCount)
         {
             List<SaleItem> saleItems = new List<SaleItem>();
             double price = 0;
@@ -115,15 +120,15 @@ namespace MyFirstProject.Infrastructure.Services
             var product = _products.FindAll(p => p.ProductCode.Equals(code)).FirstOrDefault();
             var saleItem = new SaleItem();
             var Code = code;
-            saleItem.SaleCount = count;
+            saleItem.SaleCount = saleCount;
             saleItem.SaleProduct = product;
             saleItem.SaleItemNumber = saleItems.Count + 1;
             saleItems.Add(saleItem);
-            price += count * saleItem.SaleProduct.ProductPrice;
-            var saleNo = _sales.Count + 1;
+            price += saleCount * saleItem.SaleProduct.ProductPrice;
+            var saleNumber = _sales.Count + 1;
             var saleDate = DateTime.Now;
             var sale = new Sale();
-            sale.SaleNumber = saleNo;
+            sale.SaleNumber = saleNumber;
             sale.SaleAmount = price;
             sale.SaleItems = saleItems;
             sale.SaleDate = saleDate;

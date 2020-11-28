@@ -11,7 +11,7 @@ namespace MyFirstProject.Infrastructure.Interface
       List<Sale> Sales { get; }
         List<Product> Products { get; }
         List<SaleItem> SaleItems { get; }
-       void  AddSale(int code, int count);
+       void  AddSale(int code, int saleCount);
         List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate);
         List<Sale> GetSalesByAmountRange(double startAmount, double endAmount);
         List<Sale> GetSaleByDate(DateTime Date);

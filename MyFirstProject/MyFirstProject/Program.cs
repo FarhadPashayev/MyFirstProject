@@ -157,7 +157,8 @@ namespace MyFirstProject
                     switch (SelectInt2)
                     {
                         case 1:
-                            continue;
+                            ShowAddSale();
+                            break;
                         case 2:
                             continue;
                         case 3:
@@ -555,37 +556,102 @@ namespace MyFirstProject
                 Sale sale = new Sale();
 
                 #region Sale Number
-                Console.WriteLine("Satışın nömrəsini daxil edin:");
-                string SaleNumberInput = Console.ReadLine();
-                int SaleNumber;
-                while (!int.TryParse(SaleNumberInput, out SaleNumber))
+                Console.WriteLine("");
+                Console.Write("Satışın nömrəsini daxil edin:");
+                string saleNumberInput = Console.ReadLine();
+                int saleNumber;
+
+                while (!int.TryParse(saleNumberInput, out saleNumber))
                 {
+                    Console.WriteLine("");
                     Console.Write("Ancaq rəqəm daxil etmələsiniz :");
-                    SaleNumberInput = Console.ReadLine();
+                    saleNumberInput = Console.ReadLine();
                 }
-                sale.SaleNumber = SaleNumber;
+                sale.SaleNumber = saleNumber;
                 #endregion
+
+
                 #region Sale Amount 
+                Console.WriteLine("");
                 Console.Write("Satışın məbləğini daxil edin :");
-                string SaleAmountInput = Console.ReadLine();
-                double SaleAmount;
-                while (!double.TryParse(SaleAmountInput, out SaleAmount))
+                string saleAmountInput = Console.ReadLine();
+                double saleAmount;
+
+                while (!double.TryParse(saleAmountInput, out saleAmount))
                 {
+                    Console.WriteLine("");
                     Console.Write("Ancaq rəqəm daxil etməlisiniz :");
-                    SaleAmountInput = Console.ReadLine();
+                    saleAmountInput = Console.ReadLine();
                 }
-                sale.SaleAmount = SaleAmount;
+                sale.SaleAmount = saleAmount;
                 #endregion
+
+
                 #region Sale Date 
+                Console.WriteLine("");
                 Console.Write("Satışın tarixini daxil edin :");
-                string SaleDateInput = Console.ReadLine();
-                DateTime SaleDate;
-                while(!DateTime.TryParse(SaleDateInput, out SaleDate))
+                string saleDateInput = Console.ReadLine();
+                DateTime saleDate;
+
+
+                while(!DateTime.TryParse(saleDateInput, out saleDate))
                 {
+                    Console.WriteLine("");
                     Console.Write("satışın tarixini daxil edin :");
-                    SaleDateInput = Console.ReadLine();
+                    saleDateInput = Console.ReadLine();
                 }
                 #endregion
+
+                #region Sale Item
+                SaleItem saleItem = new SaleItem();
+
+                #region Sale Item Number
+                Console.WriteLine("");
+                Console.Write("Məhsulun nömrəsini daxil edin:");
+                string saleItemNumberInput = Console.ReadLine();
+                int saleItemNumber;
+                while (!int.TryParse(saleItemNumberInput, out saleItemNumber))
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("Rəqəm daxil etməlisiniz!");
+                    saleItemNumberInput = Console.ReadLine();
+                }
+                saleItem.SaleItemNumber = saleItemNumber;
+                #endregion
+
+                #region Sale Item Count
+                Console.WriteLine("");
+                Console.Write("Satışın nömrəsini daxil edin :");
+                string saleItemCountInput = Console.ReadLine();
+                int saleItemCount;
+
+                while (!int.TryParse(saleItemCountInput,out saleItemCount))
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("Rəqəm daxil etməlisiniz!");
+                    saleItemCountInput = Console.ReadLine();
+                }
+                saleItem.SaleCount = saleItemCount;
+                #endregion
+
+                #region Sale Product
+                Product product = new Product();
+                Console.WriteLine("");
+                Console.Write("Məhsulun nömrəsini daxil edin :");
+                string productCodeInput = Console.ReadLine();
+                product.ProductCode = productCodeInput;
+                #endregion
+
+
+                #endregion
+
+                if (sale == null)
+                {
+                    _marketableService.AddSale(saleNumber, saleItemCount);
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine("-------------- Yeni satış əlavə edildi --------------");
 
 
             }
