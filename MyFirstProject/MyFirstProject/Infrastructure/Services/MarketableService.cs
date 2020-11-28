@@ -112,26 +112,26 @@ namespace MyFirstProject.Infrastructure.Services
             _products.Add(product);
         } //+
 
-        public void AddSale(int code, int saleCount)
+        public void AddSale(string productCode, int productQuantity)
         {
             List<SaleItem> saleItems = new List<SaleItem>();
-            double price = 0;
+            double amount = 0;
 
-            var product = _products.FindAll(p => p.ProductCode.Equals(code)).FirstOrDefault();
+            var product = _products.Where(p => p.ProductCode.Equals(productCode)).FirstOrDefault();
             var saleItem = new SaleItem();
-            var Code = code;
-            saleItem.SaleCount = saleCount;
+            var Code = productCode;
+            saleItem.SaleCount =productQuantity;
             saleItem.SaleProduct = product;
             saleItem.SaleItemNumber = saleItems.Count + 1;
             saleItems.Add(saleItem);
-            price += saleCount * saleItem.SaleProduct.ProductPrice;
+            amount += productQuantity * saleItem.SaleProduct.ProductPrice;
             var saleNumber = _sales.Count + 1;
             var saleDate = DateTime.Now;
             var sale = new Sale();
             sale.SaleNumber = saleNumber;
-            sale.SaleAmount = price;
-            sale.SaleItems = saleItems;
+            sale.SaleAmount = amount;
             sale.SaleDate = saleDate;
+            sale.SaleItems = saleItems;
             _sales.Add(sale);
         } 
 
@@ -140,10 +140,7 @@ namespace MyFirstProject.Infrastructure.Services
             return _products.FindAll(p => p.ProductCode == productCode).ToList();
         }  //+
 
-        public int RemoveProductBySaleItem(int SaleNumber, string ProductCode, int ProductQuantity)
-        {
-            throw new NotImplementedException();
-        }  //+
+       
 
         public List<Product> GetProductsByAmountRange(double startAmount ,double endAmount )
         {
@@ -204,5 +201,10 @@ namespace MyFirstProject.Infrastructure.Services
         {
             return _sales.Find(s => s.SaleNumber == saleNumber).SaleItems.ToList();
         } //+
+
+        public void RemoveProductBySaleItem(int saleNumber, string productCode, int quantity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

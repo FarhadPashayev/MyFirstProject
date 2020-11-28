@@ -11,18 +11,18 @@ namespace MyFirstProject.Infrastructure.Interface
       List<Sale> Sales { get; }
         List<Product> Products { get; }
         List<SaleItem> SaleItems { get; }
-       void  AddSale(int code, int saleCount);
+       void  AddSale(string productCode,int productQuantity);
         List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate);
         List<Sale> GetSalesByAmountRange(double startAmount, double endAmount);
         List<Sale> GetSaleByDate(DateTime Date);
         List<Sale> GetSaleBySaleNumber(double saleNumber);
         void RemoveSale(int saleNumber);
         List<SaleItem> ShowSaleItem(int saleNumber);
+        void RemoveProductBySaleItem(int saleNumber, string productCode, int quantity);
 
         //112320
         void AddProduct(Product product);
         List<Product>  EditProduct (string ProductCode  );
-        int RemoveProductBySaleItem(int SaleNumber, string ProductCode, int ProductQuantity);
         void GetProductsByCategoryName (ProductCategoryType productCategory );
         List<Product> GetProductsByAmountRange(double startAmount , double endAmount );
         List<Product> GetProductsByProductsName(string ProductName);
