@@ -133,7 +133,7 @@ namespace MyFirstProject.Infrastructure.Services
             sale.SaleDate = saleDate;
             sale.SaleItems = saleItems;
             _sales.Add(sale);
-        } 
+        }  //+
 
         public List<Product> EditProduct(string productCode)
         {
@@ -202,9 +202,28 @@ namespace MyFirstProject.Infrastructure.Services
             return _sales.Find(s => s.SaleNumber == saleNumber).SaleItems.ToList();
         } //+
 
-        public void RemoveProductBySaleItem(int saleNumber, string productCode, int quantity)
+        public double RemoveProductBySaleItem(int saleNumber, string productCode, int quantity)
         {
-            throw new NotImplementedException();
+            double amount = 0;
+            var productlist = _products.ToList();
+            var salelist = _sales.ToList();
+
+            var sale = salelist.Find(r => r.SaleNumber == saleNumber);
+
+            bool findproduct = productlist.Exists(r => r.ProductCode == productCode);
+            if (findproduct== true)
+            {
+                var list = productlist.Find(r => r.ProductCode == productCode);
+                if (sale.SaleAmount > list.ProductPrice * quantity)
+                {
+                    sale.SaleAmount -= list.ProductPrice * quantity;
+                }
+                else if ((sale.SaleAmount == list.ProductPrice * quantity))
+                {
+                    _sales.Remove(sale);
+                }
+            }
+            return amount;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MyFirstProject.Infrastructure.Interface
         List<Sale> GetSaleBySaleNumber(double saleNumber);
         void RemoveSale(int saleNumber);
         List<SaleItem> ShowSaleItem(int saleNumber);
-        void RemoveProductBySaleItem(int saleNumber, string productCode, int quantity);
+        double RemoveProductBySaleItem(int saleNumber, string productCode, int quantity);
 
         //112320
         void AddProduct(Product product);
