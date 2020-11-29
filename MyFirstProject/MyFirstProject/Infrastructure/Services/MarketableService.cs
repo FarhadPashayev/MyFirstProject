@@ -19,92 +19,89 @@ namespace MyFirstProject.Infrastructure.Services
 
         public MarketableService()
         {
-            _products = new List<Product>
+            _sales = new List<Sale>();
+            _saleItems = new List<SaleItem>();
+            _products = new List<Product>();
+
+            #region Default Product
+            _products.Add(new Product
             {
-              #region Default Product 
-                new Product
-                {
-                    ProductName = "Lenova B50-50  ",
-                    ProductCategory = ProductCategoryType.Computer,
-                    ProductPrice = 1500,
-                    ProductQuantity = 3,
-                    ProductCode = "hbxsbxsx5sx"
+                ProductCategory = ProductCategoryType.SonyHeadphone,
+                ProductName = "Sony qulaqlıq",
+                ProductPrice = 25,
+                ProductQuantity = 10,
+                ProductCode = "AAA"
+            });
 
+            _products.Add(new Product
+            {
+                ProductCategory = ProductCategoryType.Phone,
+                ProductName = "Telefon iPhone 12 Mini 64GB Blue",
+                ProductPrice = 40,
+                ProductQuantity = 5,
+                ProductCode = "IN000021939"
+            });
 
-
-                },
-                new Product
-                {
-
-                    ProductName = "Samsung Note20 Ultra  ",
-                    ProductCategory = ProductCategoryType.Phone,
-                    ProductPrice = 2500,
-                    ProductQuantity = 2,
-                    ProductCode = "hbckdjnckjdn4dc"
-
-                },
-                new Product
-                {
-
-                    ProductName = "LG  ",
-                    ProductCategory = ProductCategoryType.Tv,
-                    ProductPrice = 2000,
-                    ProductQuantity = 1,
-                    ProductCode = "bchdbbc51cddc"
-
-                }
-            };
+            _products.Add(new Product
+            {
+                ProductCategory = ProductCategoryType.SonyHeadphone,
+                ProductName = "Sony qulaqlıq pro",
+                ProductPrice = 10,
+                ProductQuantity = 7,
+                ProductCode = "IN000015880"
+            });
             #endregion
-              #region Default SaleItem
-            _saleItems = new List<SaleItem>
+
+            #region Default SaleItem
+            _saleItems.Add(new SaleItem
             {
-                new SaleItem
-                {
-                    SaleCount = 3,
-                    SaleItemNumber = 1,
-                    SaleProduct = _products.Find(p => p.ProductCode == "hbxsbxsx5sx")
-                },
-                new SaleItem
-                {
-                    SaleCount = 2,
-                    SaleItemNumber = 2,
-                    SaleProduct = _products.Find(p => p.ProductCode == "hbckdjnckjdn4dc")
-                },
-                new SaleItem
-                {
-                    SaleCount = 5,
-                    SaleItemNumber = 3,
-                    SaleProduct = _products.Find(p => p.ProductCode == "bchdbbc51cddc")
-                }
-            };
+                SaleItemNumber = 1,
+                SaleCount = 1,
+                SaleProduct = _products.Find(p => p.ProductCode == "AAA")
+
+            });
+
+            _saleItems.Add(new SaleItem
+            {
+                SaleItemNumber = 2,
+                SaleCount = 2,
+                SaleProduct = _products.Find(p => p.ProductCode == "IN000021939")
+
+            });
+
+            _saleItems.Add(new SaleItem
+            {
+                SaleItemNumber = 3,
+                SaleCount = 3,
+                SaleProduct = _products.Find(p => p.ProductCode == "IN000015880")
+
+            });
             #endregion
-              #region Default Sale
-            _sales = new List<Sale>
+
+            #region Default Sale
+            _sales.Add(new Sale
             {
-                new Sale
-                {
-                    SaleAmount = 500,
-                    SaleNumber = 1,
-                    SaleDate = new DateTime(2020, 07, 25),
-                    SaleItems = _saleItems.FindAll(si => si.SaleCount == 1)
+                SaleNumber = 1,
+                SaleAmount = 25,
+                SaleDate = new DateTime(2020, 5, 16),
+                SaleItems = _saleItems.FindAll(si => si.SaleItemNumber == 1)
+            });
 
+            _sales.Add(new Sale
+            {
+                SaleNumber = 2,
+                SaleAmount = 80,
+                SaleDate = new DateTime(2020, 8, 19),
+                SaleItems = _saleItems.FindAll(si => si.SaleItemNumber == 2)
+            });
 
-                },
-                new Sale
-                {
-                    SaleAmount = 200,
-                    SaleNumber = 2,
-                    SaleDate = new DateTime(2020, 08, 12),
-                    SaleItems = _saleItems.FindAll(si => si.SaleCount == 2)
-                },
-                new Sale
-                {
-                    SaleAmount = 350,
-                    SaleNumber = 3,
-                    SaleDate = new DateTime(2020, 08, 18),
-                    SaleItems = _saleItems.FindAll(si => si.SaleCount == 3)
-                }
-            };
+            _sales.Add(new Sale
+            {
+                SaleNumber = 3,
+                SaleAmount = 30,
+                SaleDate = new DateTime(2020, 11, 27),
+                SaleItems = _saleItems.FindAll(si => si.SaleItemNumber == 2)
+            });
             #endregion
         }
         public void AddProduct(Product product)
@@ -205,18 +202,21 @@ namespace MyFirstProject.Infrastructure.Services
         public double RemoveProductBySaleItem(int saleNumber, string productCode, int quantity)
         {
             double amount = 0;
-            var productlist = _products.ToList();
+            var prolist = _products.ToList();
             var salelist = _sales.ToList();
+
 
             var sale = salelist.Find(r => r.SaleNumber == saleNumber);
 
-            bool findproduct = productlist.Exists(r => r.ProductCode == productCode);
-            if (findproduct== true)
+
+            bool findproduct = prolist.Exists(r => r.ProductCode == productCode);
+            if (findproduct == true)
             {
-                var list = productlist.Find(r => r.ProductCode == productCode);
+                var list = prolist.Find(r => r.ProductCode == productCode);
                 if (sale.SaleAmount > list.ProductPrice * quantity)
                 {
                     sale.SaleAmount -= list.ProductPrice * quantity;
+
                 }
                 else if ((sale.SaleAmount == list.ProductPrice * quantity))
                 {
