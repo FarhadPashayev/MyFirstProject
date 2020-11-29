@@ -29,15 +29,15 @@ namespace MyFirstProject.Infrastructure.Services
                 ProductCategory = ProductCategoryType.SonyHeadphone,
                 ProductName = "Sony qulaqlıq",
                 ProductPrice = 25,
-                ProductQuantity = 10,
-                ProductCode = "AAA"
+                ProductQuantity = 70,
+                ProductCode = "IN000021456"
             });
 
             _products.Add(new Product
             {
                 ProductCategory = ProductCategoryType.Phone,
                 ProductName = "Telefon iPhone 12 Mini 64GB Blue",
-                ProductPrice = 40,
+                ProductPrice = 1500,
                 ProductQuantity = 5,
                 ProductCode = "IN000021939"
             });
@@ -46,8 +46,8 @@ namespace MyFirstProject.Infrastructure.Services
             {
                 ProductCategory = ProductCategoryType.SonyHeadphone,
                 ProductName = "Sony qulaqlıq pro",
-                ProductPrice = 10,
-                ProductQuantity = 7,
+                ProductPrice = 50,
+                ProductQuantity = 10,
                 ProductCode = "IN000015880"
             });
             #endregion
@@ -57,7 +57,7 @@ namespace MyFirstProject.Infrastructure.Services
             {
                 SaleItemNumber = 1,
                 SaleCount = 1,
-                SaleProduct = _products.Find(p => p.ProductCode == "AAA")
+                SaleProduct = _products.Find(p => p.ProductCode == "IN000021456")
 
             });
 
