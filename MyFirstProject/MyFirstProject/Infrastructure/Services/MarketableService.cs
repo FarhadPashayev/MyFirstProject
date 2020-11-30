@@ -15,6 +15,8 @@ namespace MyFirstProject.Infrastructure.Services
         private readonly List<Product> _products;
         public List<Product> Products => _products;
         private readonly List<SaleItem> _saleItems;
+        private string productName;
+
         public List<SaleItem> SaleItems =>_saleItems;
 
         public MarketableService()
@@ -36,7 +38,7 @@ namespace MyFirstProject.Infrastructure.Services
             _products.Add(new Product
             {
                 ProductCategory = ProductCategoryType.Phone,
-                ProductName = "Telefon iPhone 12 Mini 64GB Blue",
+                ProductName = "IPhone 12 Mini 64GB Blue",
                 ProductPrice = 1500,
                 ProductQuantity = 5,
                 ProductCode = "IN000021939"
@@ -44,11 +46,20 @@ namespace MyFirstProject.Infrastructure.Services
 
             _products.Add(new Product
             {
-                ProductCategory = ProductCategoryType.SonyHeadphone,
-                ProductName = "Sony qulaqlıq pro",
-                ProductPrice = 50,
+                ProductCategory = ProductCategoryType.Tv,
+                ProductName = "Zimmer ZM-TVH3235",
+                ProductPrice = 600,
                 ProductQuantity = 10,
                 ProductCode = "IN000015880"
+            });
+            _products.Add(new Product
+            {
+                ProductCategory = ProductCategoryType.Computer,
+                ProductName = "Lenova B50-50",
+                ProductPrice = 1200,
+                ProductQuantity = 10,
+                ProductCode = "IN000015999"
+
             });
             #endregion
 
@@ -76,6 +87,13 @@ namespace MyFirstProject.Infrastructure.Services
                 SaleProduct = _products.Find(p => p.ProductCode == "IN000015880")
 
             });
+            _saleItems.Add(new SaleItem
+            {
+                SaleItemNumber = 4,
+                SaleCount = 4,
+                SaleProduct = _products.Find(p => p.ProductCode == "IN000015999")
+
+            });
             #endregion
 
             #region Default Sale
@@ -100,7 +118,15 @@ namespace MyFirstProject.Infrastructure.Services
                 SaleNumber = 3,
                 SaleAmount = 30,
                 SaleDate = new DateTime(2020, 11, 27),
-                SaleItems = _saleItems.FindAll(si => si.SaleItemNumber == 2)
+                SaleItems = _saleItems.FindAll(si => si.SaleItemNumber == 3)
+            });
+            _sales.Add(new Sale
+            {
+                SaleNumber = 4,
+                SaleAmount = 22,
+                SaleDate = new DateTime(2020, 10, 27),
+                SaleItems = _saleItems.FindAll(si => si.SaleItemNumber == 4)
+
             });
             #endregion
         }
@@ -111,33 +137,59 @@ namespace MyFirstProject.Infrastructure.Services
 
         public void AddSale(string productCode, int productQuantity)
         {
+
             List<SaleItem> saleItems = new List<SaleItem>();
             double amount = 0;
 
-            var product = _products.Where(p => p.ProductCode.Equals(productCode)).FirstOrDefault();
+            var product = _products.Where(p => p.ProductCode == productCode).FirstOrDefault();
             var saleItem = new SaleItem();
             var Code = productCode;
-            saleItem.SaleCount =productQuantity;
-            saleItem.SaleProduct = product;
-            saleItem.SaleItemNumber = saleItems.Count + 1;
-            saleItems.Add(saleItem);
-            amount += productQuantity * saleItem.SaleProduct.ProductPrice;
-            var saleNumber = _sales.Count + 1;
-            var saleDate = DateTime.Now;
-            var sale = new Sale();
-            sale.SaleNumber = saleNumber;
-            sale.SaleAmount = amount;
-            sale.SaleDate = saleDate;
-            sale.SaleItems = saleItems;
-            _sales.Add(sale);
+
+            bool check = _products.Exists(p => p.ProductCode == productCode);
+            if (check == false)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("-------------- Daxil etdiyiniz koda görə məhsul tapılmadı --------------");
+            }
+            else
+            {
+                saleItem.SaleCount = productQuantity;
+                if (product.ProductQuantity < productQuantity)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("-------------- Daxil etdiyiniz miqdarda məhsul yoxdur --------------");
+                    Console.WriteLine("");
+                }
+                else
+                {
+                    product.ProductQuantity -= productQuantity;
+                    saleItem.SaleProduct = product;
+                    saleItem.SaleItemNumber = saleItems.Count + 1;
+                    saleItems.Add(saleItem);
+                    amount += productQuantity * saleItem.SaleProduct.ProductPrice;
+
+                    var saleNumber = _sales.Count + 1;
+                    var saleDate = DateTime.Now;
+                    var sale = new Sale();
+
+                    sale.SaleNumber = saleNumber;
+                    sale.SaleAmount = amount;
+                    sale.SaleDate = saleDate;
+
+                    _sales.Add(sale);
+
+                    Console.WriteLine("");
+                    Console.WriteLine("-------------- Yeni Satış əlavə edildi --------------");
+                    Console.WriteLine("");
+                }
+            }
+
         }  //+
 
         public List<Product> EditProduct(string productCode)
         {
             return _products.FindAll(p => p.ProductCode == productCode).ToList();
         }  //+
-
-       
 
         public List<Product> GetProductsByAmountRange(double startAmount ,double endAmount )
         {
@@ -157,7 +209,10 @@ namespace MyFirstProject.Infrastructure.Services
         
         public List<Product> GetProductsByProductsName(string ProductName)
         {
-            return _products.FindAll(p => p.ProductName.Contains (ProductName)).ToList();
+            //return _products.FindAll(p => p.ProductName.Contains(productName)).ToList();
+            return _products.FindAll(p => p.ProductName == productName);
+
+
         }          //+
 
         public List<Sale> GetSaleByDate(DateTime Date)
