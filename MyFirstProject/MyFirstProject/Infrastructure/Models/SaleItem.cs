@@ -4,6 +4,7 @@ using System.Text;
 
 namespace MyFirstProject.Infrastructure.Models
 {
+    //satis item yaradib icine propertiesler verdik
      public  class SaleItem
     {
         public int SaleItemNumber { get; set; }

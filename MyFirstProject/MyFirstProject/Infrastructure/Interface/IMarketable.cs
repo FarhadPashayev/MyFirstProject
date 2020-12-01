@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace MyFirstProject.Infrastructure.Interface
 {
+    // IMarketable interface yaraddig sonra marketable service yaradib orda implement elediy 
     public interface IMarketable
     {
       List<Sale> Sales { get; }

@@ -131,21 +131,22 @@ namespace MyFirstProject.Infrastructure.Services
             #endregion
         }
         #region Product Method
+        // AddProduct un isdediyi parametr yazdig 
         public void AddProduct(Product product)
         {
             _products.Add(product);
         } //+
-
+        //Edit Produc bizden parametr olarig string cinsinden productCode isdiyirdi 
         public List<Product> EditProduct(string productCode)
         {
             return _products.FindAll(p => p.ProductCode == productCode).ToList();
         }  //+
-
+        //GetProductsByAmountRange bizden qiymet araligini gosdermey ucun her ikisi double cinsinden olan start ve end amount isdiyirdi 
         public List<Product> GetProductsByAmountRange(double startAmount ,double endAmount )
         {
             return _products.Where(p => p.ProductPrice >= startAmount && p.ProductPrice <= endAmount).ToList();
         }    //+
-
+        //GetProductsByCategoryName parametr olarig ProductCategoryType cinsinden productCategory isdiyir 
         public void GetProductsByCategoryName(ProductCategoryType productCategory) 
         {
             List<Product> list = _products.FindAll(p => p.ProductCategory == productCategory).ToList();
@@ -166,7 +167,7 @@ namespace MyFirstProject.Infrastructure.Services
             }
           
         }   // +
-        
+        //GetProductsByProductsName productun adina gore mehsulu cixardmag ucun ucun bizden parametr olarag string cinsinden ProductName isdiyir 
         public List<Product> GetProductsByProductsName(string ProductName)
         {
            
@@ -176,6 +177,7 @@ namespace MyFirstProject.Infrastructure.Services
 
 
         }          //+
+        //RemoveProduct productu silmek ucun biz parametr olarag biz string cinsinden productCode veririk ki code daxil edende silsin productu  
         public void RemoveProduct(string productCode)
         {
 
@@ -201,6 +203,7 @@ namespace MyFirstProject.Infrastructure.Services
 
 
         #region Sale Method 
+        // AddSale satis elave etmek ucun biz parametr vermeliyik string cinsinden productCode ve int cinsinden productQuantity
         public void AddSale(string productCode, int productQuantity)
         {
 
@@ -251,29 +254,30 @@ namespace MyFirstProject.Infrastructure.Services
             }
 
         }  //+
+        // GetSaleByDate bu method bir zamanda olan satislari gosderir ve gosdermesi ucun parametr veririk datetime cinsinden date 
         public List<Sale> GetSaleByDate(DateTime Date)
         {
            return _sales.Where(s => s.SaleDate == Date).ToList();
         } //+
-
+        // GetSaleBySaleNumber verilmis nomreye esasen hemin nomreli satisin gosderilmesi bunun ucun biz parametr olarag double cinsinden saleNumber vermeliyik
         public List<Sale> GetSaleBySaleNumber(double saleNumber)
         {
             return _sales.Where(s => s.SaleNumber == saleNumber).ToList();
         } //+
 
-
+        //GetSalesByAmountRange qiymet araligina gore satislarin gosderilmesi bu method ucunde double cinsinden start ve end amount veririk ki bize gosdersin 
         public List<Sale> GetSalesByAmountRange(double startAmount, double endAmount) 
         {
             return _sales.Where(s => s.SaleAmount >= startAmount && s.SaleAmount <= endAmount).ToList();
         } //+
-
+        // GetSalesByDateRange bu method zaman araligina gore satislari gosderir ve biz parametr olarig datetime cinsinden start ve end date veririk 
         public List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate)
         {
             return _sales.Where(s => s.SaleDate >= startDate && s.SaleDate <= endDate).ToList();
         } //+
 
-      
 
+        // RemoveSale satisin silinmesi isini gorur parametr olarag int cinsinden saleNumber veririk satisin nomresine gore silsin 
         public void RemoveSale(int saleNumber)
         {
             bool check = _sales.Exists(s => s.SaleNumber == saleNumber);
@@ -291,12 +295,12 @@ namespace MyFirstProject.Infrastructure.Services
                 Console.WriteLine("============== Satış silindi ==============");
             }
         } //+
-
+        //ShowSaleItem  
         public List<SaleItem> ShowSaleItem(int saleNumber)
         {
             return _sales.Find(s => s.SaleNumber == saleNumber).SaleItems.ToList();
         } //+
-
+        //RemoveProductBySaleItem satisin satisda hansisa mehsulun geri qaytarilmasi parametr olarag int cinsinden bizden saleNumber string cinsinden productCode int cinsinden productQuantity isdiyir 
         public double RemoveProductBySaleItem(int saleNumber, string productCode, int productQuantity)
         {
             double amount = 0;

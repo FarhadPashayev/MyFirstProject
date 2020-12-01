@@ -5,6 +5,7 @@ using System.Text;
 
 namespace MyFirstProject.Infrastructure.Models
 {
+    //Mehsul clasi yaratdig ve icine properties ler verdik
     public  class Product
     {
         public  string ProductName { get; set; }

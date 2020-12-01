@@ -14,10 +14,12 @@ namespace MyFirstProject
         private static readonly MarketableService _marketableService = new MarketableService();
         static void Main(string[] args)
         {
+            //Azerbaycan dilinde program islesin deye 
             Console.OutputEncoding = Encoding.UTF8;
             int selectInt;
             do
             {
+                // do while yazdig cunki islesin sonra yoxlasin 
                 #region First Menu
                 Console.WriteLine("=========Market idare etmək sistemi========== ");
                 Console.WriteLine("1. Məhsullar üzərində əməliyyat aparmaq ");
@@ -60,7 +62,7 @@ namespace MyFirstProject
             // Mehsul isdediklerini gosdermey ucun 
             static void ShowProductsMenu()
 
-            #region second Menu 
+                      #region second Menu 
             {
                 int SelectInt1;
                 do
@@ -129,7 +131,8 @@ namespace MyFirstProject
 
             //satis isdeklerni gosdermek ucun 
             static void ShowSale()
-            #region Three  Menu 
+                //menu verildi ve menu icinde olanlar sonra switch icinde methodlar verildi 
+                      #region Three  Menu 
             {
                 int SelectInt2;
                 do
@@ -215,13 +218,13 @@ namespace MyFirstProject
 
                 table.Write();
             }
-           
-            // Add product methodu yaradag 
+
+            //  product methodlari 
             static void ShowProductAdd()
             {
                 Console.WriteLine("===================== Yeni satış əlavə et =====================");
                 Product product = new Product();
-
+                // isdediyi parametrler consolda gorsensin deye ve whie verilib sef reqem daxil edilmesin deye 
                 #region ProductCategoryType 
                 int selectInt;
                 do
@@ -330,9 +333,7 @@ namespace MyFirstProject
 
                     Console.WriteLine("-------------- Yeni satış əlavə edildi --------------");
                 }
-            } //+++++
-
-            //  product methodlari 
+            } //isdiyir 
             static void ShowProductEdit()
             {
                 Product product = new Product();
@@ -451,7 +452,7 @@ namespace MyFirstProject
                         item.ProductCategory = (ProductCategoryType)selectInt;
                     }
                 }
-            } //++++
+            } //isdiyir
             static void ShowRemoveProduct()
             { 
                 
@@ -463,7 +464,7 @@ namespace MyFirstProject
 
                 string code = Console.ReadLine();
                 _marketableService.RemoveProduct(code);
-            }  //+++++++
+            }  //isdiyir
             static void ShowGetProductByAmountRange()
             {
                 Console.WriteLine("===============Qiymət aralığında məhsulların göstərilməsi=================");
@@ -525,7 +526,7 @@ namespace MyFirstProject
                         }
                     }
                 }
-            } // ++++++
+            } // isdiyir
             static void ShowGetProductsByCategoryName()
             {
                 Console.WriteLine("");
@@ -585,19 +586,18 @@ namespace MyFirstProject
                 } while (selectInt == -1);
 
                 _marketableService.GetProductsByCategoryName((ProductCategoryType)selectInt);
-            } //++++++
+            } //isdiyir
             static void ShowGetProductsByProductsName()
             {
                 Console.WriteLine("===============Adına görə məhsulun seçilməsi==============");
                 Console.WriteLine("");
                 Console.Write("Məhsulun adın daxil edin:");
                 string productName = Console.ReadLine();
-                var count = _marketableService.SaleItems.Select(m => m.SaleCount).FirstOrDefault();
-                try
-                {
+                
+               
                     var table = new ConsoleTable("No", "Nömrəsi", "Məbləği", "Məhsul sayı", "Tarixi");
                     int i = 1;
-                    //var count = _marketableService.SaleItems.Select(m => m.SaleCount).FirstOrDefault();
+                    var count = _marketableService.SaleItems.Select(m => m.SaleCount).FirstOrDefault();
 
                     foreach (var item in _marketableService.GetProductsByProductsName(productName))
                     {
@@ -605,17 +605,9 @@ namespace MyFirstProject
                         i++;
                     }
                     table.Write();
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("");
-                    Console.WriteLine("Bu adda məhsul mövcud deyil!");
-                }
-               
 
-                //table.Write();
 
-            } // +++++=
+            } // isdiyir
 
 
 
@@ -665,7 +657,7 @@ namespace MyFirstProject
 
                 _marketableService.AddSale(productCode, productQuantity);
 
-            }  // exception verdim 
+            }  // isdiyir
             static void ShowGetSalesByAmountRange()
             {
                 Console.WriteLine("===============Qiymət aralığında satışların göstərilmasi==============");
@@ -710,7 +702,7 @@ namespace MyFirstProject
                         }
                     }
                 }
-            }  // ++++++
+            }  // isdiyir
             static void ShowGetSalesByDateRange()
             {
                 Console.WriteLine("=============Tarix aralığında satışların göstərilməsi================= ");
@@ -763,7 +755,7 @@ namespace MyFirstProject
                         Console.WriteLine("Satışın  Əşyaları:" + count);
                     }
                 }
-            }  //+++++++
+            }  //isdiyir
             static void ShowRemoveSale()
             {
                 Sale sale = new Sale();
@@ -787,7 +779,7 @@ namespace MyFirstProject
                 Console.WriteLine("");
 
                 _marketableService.RemoveSale(code);
-            }  // +++++++++++
+            }  // isdiyir
             static void ShowGetSaleByDate()
             {
                 Console.WriteLine("");
@@ -826,7 +818,7 @@ namespace MyFirstProject
 
                     }
                 }
-            }  //++++++
+            }  //isdiyir
             static void ShowGetSaleBySaleNumber()
             {
                 Console.WriteLine("");
@@ -870,7 +862,7 @@ namespace MyFirstProject
                         Console.WriteLine("Sayi: " + item.SaleCount + "\n" + "İtem Nömrəsi: " + item.SaleItemNumber + "\n" + "Məhsulun Adı: " + item.SaleProduct.ProductName);
                     }
                 }
-            } //+++++
+            } //isdiyir
             static void ShowRemoveProductBySaleItem()
             {
                 Console.WriteLine("================= Satışdan məhsulu geri qaytarın =================");
@@ -909,7 +901,7 @@ namespace MyFirstProject
 
                 #endregion
 
-            } /// ++++++
+            } //isdiyir
 
 
         }

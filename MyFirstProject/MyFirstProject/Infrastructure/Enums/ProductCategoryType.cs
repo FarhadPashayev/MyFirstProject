@@ -4,6 +4,7 @@ using System.Text;
 
 namespace MyFirstProject.Infrastructure.Enums
 {
+    //mehsulun kategoriyasini enum verdik 
     public  enum ProductCategoryType
     {
          SonyHeadphone = 0,
