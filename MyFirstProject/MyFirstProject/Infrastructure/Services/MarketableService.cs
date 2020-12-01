@@ -29,7 +29,7 @@ namespace MyFirstProject.Infrastructure.Services
             _products.Add(new Product
             {
                 ProductCategory = ProductCategoryType.SonyHeadphone,
-                ProductName = "Sony qulaqlıq",
+                ProductName = "AAA",
                 ProductPrice = 25,
                 ProductQuantity = 70,
                 ProductCode = "IN000021456"
@@ -130,11 +130,77 @@ namespace MyFirstProject.Infrastructure.Services
             });
             #endregion
         }
+        #region Product Method
         public void AddProduct(Product product)
         {
             _products.Add(product);
         } //+
 
+        public List<Product> EditProduct(string productCode)
+        {
+            return _products.FindAll(p => p.ProductCode == productCode).ToList();
+        }  //+
+
+        public List<Product> GetProductsByAmountRange(double startAmount ,double endAmount )
+        {
+            return _products.Where(p => p.ProductPrice >= startAmount && p.ProductPrice <= endAmount).ToList();
+        }    //+
+
+        public void GetProductsByCategoryName(ProductCategoryType productCategory) 
+        {
+            List<Product> list = _products.FindAll(p => p.ProductCategory == productCategory).ToList();
+
+            if (list.Count == 0)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Bu kateqoriyada məhsul yoxdur!");
+            }
+            else
+            {
+
+
+                foreach (var item in list)
+                {
+                    Console.WriteLine("{0},{1},{2}", item.ProductCode, item.ProductName, item.ProductPrice);
+                }
+            }
+          
+        }   // +
+        
+        public List<Product> GetProductsByProductsName(string ProductName)
+        {
+           
+            var list = _products.Where(p => p.ProductName.Contains(ProductName)).ToList();
+
+            return list;
+
+
+        }          //+
+        public void RemoveProduct(string productCode)
+        {
+
+            var resultlist = _products.ToList();
+            bool check = _products.Exists(p => p.ProductCode == productCode);
+            if (check == false)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Bu koda görə məhsul tapılmadı!");
+            }
+            else
+            {
+                var itemToRemove = resultlist.Single(r => r.ProductCode == productCode);
+
+                _products.Remove(itemToRemove);
+
+                Console.WriteLine("");
+                Console.WriteLine("-------------- Məhsul silindi --------------");
+            }
+
+        }    //+
+        #endregion
+
+
+        #region Sale Method 
         public void AddSale(string productCode, int productQuantity)
         {
 
@@ -185,36 +251,6 @@ namespace MyFirstProject.Infrastructure.Services
             }
 
         }  //+
-
-        public List<Product> EditProduct(string productCode)
-        {
-            return _products.FindAll(p => p.ProductCode == productCode).ToList();
-        }  //+
-
-        public List<Product> GetProductsByAmountRange(double startAmount ,double endAmount )
-        {
-            return _products.Where(p => p.ProductPrice >= startAmount && p.ProductPrice <= endAmount).ToList();
-        }    //+
-
-        public void GetProductsByCategoryName(ProductCategoryType productCategory) 
-        {
-            List<Product> list = _products.FindAll(p => p.ProductCategory == productCategory).ToList();
-
-            foreach (var item in list )
-            {
-                Console.WriteLine("{0},{1},{2}",item.ProductCode,item.ProductName,item.ProductPrice);
-            }
-          
-        }   // +
-        
-        public List<Product> GetProductsByProductsName(string ProductName)
-        {
-            //return _products.FindAll(p => p.ProductName.Contains(productName)).ToList();
-            return _products.FindAll(p => p.ProductName == productName);
-
-
-        }          //+
-
         public List<Sale> GetSaleByDate(DateTime Date)
         {
            return _sales.Where(s => s.SaleDate == Date).ToList();
@@ -236,17 +272,24 @@ namespace MyFirstProject.Infrastructure.Services
             return _sales.Where(s => s.SaleDate >= startDate && s.SaleDate <= endDate).ToList();
         } //+
 
-        public void RemoveProduct(string ProductCode)
-        {
-            var resultlist = _products.ToList();
-            var itemToRemove = resultlist.Single(r => r.ProductCode == ProductCode);
-            _products.Remove(itemToRemove);
-        }    //+
+      
 
         public void RemoveSale(int saleNumber)
         {
-            Sale sale = _sales.Find(s => s.SaleNumber == saleNumber);
-            _sales.Remove(sale);
+            bool check = _sales.Exists(s => s.SaleNumber == saleNumber);
+            if (check == false)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("{0} nömrəli satış yoxdur!", saleNumber);
+            }
+            else
+            {
+                Sale sale = _sales.Find(s => s.SaleNumber == saleNumber);
+                _sales.Remove(sale);
+
+                Console.WriteLine("");
+                Console.WriteLine("============== Satış silindi ==============");
+            }
         } //+
 
         public List<SaleItem> ShowSaleItem(int saleNumber)
@@ -254,31 +297,53 @@ namespace MyFirstProject.Infrastructure.Services
             return _sales.Find(s => s.SaleNumber == saleNumber).SaleItems.ToList();
         } //+
 
-        public double RemoveProductBySaleItem(int saleNumber, string productCode, int quantity)
+        public double RemoveProductBySaleItem(int saleNumber, string productCode, int productQuantity)
         {
             double amount = 0;
             var prolist = _products.ToList();
             var salelist = _sales.ToList();
 
 
-            var sale = salelist.Find(r => r.SaleNumber == saleNumber);
-
-
-            bool findproduct = prolist.Exists(r => r.ProductCode == productCode);
-            if (findproduct == true)
+            
+            bool checkSaleNumber = _sales.Exists(s => s.SaleNumber == saleNumber);
+            if (checkSaleNumber == false)
             {
-                var list = prolist.Find(r => r.ProductCode == productCode);
-                if (sale.SaleAmount > list.ProductPrice * quantity)
+                Console.WriteLine("");
+                Console.WriteLine("Bu nömrədə satış yoxdur!");
+            }
+            else
+            {
+                var sale = salelist.Find(r => r.SaleNumber == saleNumber);
+                bool checkProductCode = prolist.Exists(p => p.ProductCode == productCode);
+                if (checkProductCode == false)
                 {
-                    sale.SaleAmount -= list.ProductPrice * quantity;
-
+                    Console.WriteLine("");
+                    Console.WriteLine("Bu koda aid məhsul tapılmadı!");
                 }
-                else if ((sale.SaleAmount == list.ProductPrice * quantity))
+                else
                 {
-                    _sales.Remove(sale);
+
+
+
+                    var list = prolist.Find(r => r.ProductCode == productCode);
+                    if (sale.SaleAmount > list.ProductPrice * productQuantity)
+                    {
+                        sale.SaleAmount -= list.ProductPrice * productQuantity;
+
+                    }
+                    else if ((sale.SaleAmount == list.ProductPrice * productQuantity))
+                    {
+                        _sales.Remove(sale);
+                    }
+                    else
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Kodu {0} olan məhsuldan {1} sayda satılmayıb!\n\nDüzgün say daxil edin!", productCode, productQuantity);
+                    }
                 }
             }
             return amount;
         }
+        #endregion
     }
 }
